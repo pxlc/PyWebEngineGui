@@ -65,6 +65,8 @@ def launch_as_dialog(app_module_filepath, **kwargs):
         parent = None
         if inside_maya_dcc():
             parent = get_maya_main_window()
+        elif inside_houdini_dcc():
+            parent = get_houdini_main_window()  # IMPORTANT NOTE: this will hang houdini - DON'T use in houdini!
         kwargs['parent'] = parent
         custom_dialog = subclass_to_instance(**kwargs)
         custom_dialog.show()
@@ -88,15 +90,21 @@ def inside_maya_dcc():
 
 def get_maya_main_window():
 
+    import maya.OpenMayaUI as omui
+    from shiboken2 import wrapInstance
+    main_window_ptr = omui.MQtUtil.mainWindow()
+    main_window_widget = wrapInstance(long(main_window_ptr), QWidget)
+
+    return main_window_widget
+
+
+def inside_houdini_dcc():
+
     try:
-        import maya.OpenMayaUI as omui
-        from shiboken2 import wrapInstance
-        main_window_ptr = omui.MQtUtil.mainWindow()
-        main_window_widget = wrapInstance(long(main_window_ptr), QWidget)
-        return main_window_widget
-    except ImportError:
-        pass
-    return None
+        import hou
+        return True
+    except:
+        return False
 
 
 def get_houdini_main_window():
@@ -107,12 +115,11 @@ def get_houdini_main_window():
     # NOTE: completely. But if it didn't hang, here is how you would attach the WebEngineWindow dialog to the
     # NOTE: Houdini main window ...
     # NOTE: ---------------------------------------------------------------------------------------------------
-    try:
-        # Then try to see if we are in Houdini ...
-        import hou
-        main_window_widget = hou.qt.mainWindow()
-    except ImportError:
-        pass
-    return None
+
+    # Then try to see if we are in Houdini ...
+    import hou
+    main_window_widget = hou.qt.mainWindow()
+
+    return main_window_widget
 
 
