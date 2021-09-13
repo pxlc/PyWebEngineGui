@@ -1,0 +1,47 @@
+/*
++ ==============================================================================
+|
+|     TaskManager plugin CSS styles
+|
++ ==============================================================================
+*/
+
+.${P}_message_log_style {
+    color: white;
+    background-color: black;
+    padding: 10px;
+    border-radius: 4px;
+    height: 300px;
+    word-wrap: break-word;
+    font-family: Courier New, monospace;
+    overflow:scroll;
+    font-size: small;
+}
+
+.${P}_message_info { color: #BFD1E5; }
+.${P}_message_debug { color: #60D394; }
+.${P}_message_warning { color: #FFD97D; }
+.${P}_message_error{ color: #EE6055; }
+.${P}_message_critical{ color: red; }
+
+.${P}_progress_bar_style {
+    background-color: #BFD1E5;
+    padding: 0px;
+    border-radius: 4px;
+    height: 20px;
+    margin-top: 20px;
+}
+
+.${P}_progress_bar_fill_style {
+    /* background-color: #157A6E; */ /* Pine Green */
+    background-color: #499F68; /* Shamrock Green */
+
+    /* border-radius: 4px 0px 0px 4px; */ /* top-left top-right bottom-right bottom-left */
+    border-radius: 4px;
+    padding: 0px;
+    height: 100%;
+    margin: 0px;
+    width: 0.0%;
+}
+
+

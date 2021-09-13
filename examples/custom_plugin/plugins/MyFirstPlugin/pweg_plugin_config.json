@@ -1,0 +1,17 @@
+{
+    "#" : [
+        "This is a comment block for these configuration files.",
+        "Plugin MUST, at a minimum, have a 'default' variation entry if config is to be specified",
+        "---"
+    ],
+    "default": {
+        "popup": {
+            "class": "${P}_popup"
+        }
+    },
+    "bootstrap": {
+        "popup": {
+            "class": "container ${P}_popup"
+        }
+    }
+}

@@ -1,0 +1,276 @@
+<html>
+
+<!--
+--------------------------------------------------------------------------------
+ MIT License
+
+ Copyright (c) 2021 pxlc@github
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+--------------------------------------------------------------------------------
+-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <style>
+        .button {
+            color: white;
+            background-color: #333399;
+            border-radius: 4px;
+            padding: 4px;
+            text-align: center;
+            width: 200px;
+            cursor: pointer;
+        }
+
+        .ang_data_var {
+            color: #888888;
+            border-radius: 4px;
+            padding: 4px;
+            text-align: center;
+            width: 250px;
+        }
+    </style>
+
+<link rel="icon" 
+      type="image/ico" 
+      href="file://{{ APP_ROOT }}/icons/launcher_icon_small.png">
+
+    <!-- REQUIRED ... qwebchannel.js -->
+    <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+
+    <!-- REQUIRED ... pweg.js -->
+    <script language="JavaScript" src="file://{{ PWEG_ROOT }}/js/PyWebEngineGui.js"></script>
+
+<!-- [ Bootstrap ] -->
+<link href="https://bootswatch.com/4/flatly/bootstrap.css" rel="stylesheet">
+<script language="JavaScript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script language="JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script language="JavaScript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+//
+// project context
+//
+var g_show_code = "";
+
+var g_show_title_by_code = {
+    "vw": "VW Van Adventures",
+    "gc": "Green Caterpillar",
+    "kc": "Kitty Cat",
+}
+
+//
+// PyWebBrowserApp
+//
+var g_USER = "{{ USER_LOGIN }}"
+
+pweg.register_js_op('add_app_button', function(op_data)
+{
+    let btn_entry_html = op_data.btn_entry_html;
+    $("#app_buttons_div").append(btn_entry_html);
+});
+
+function launch_app(app_name) {
+    var launch_info = {
+        "app_name": app_name,
+        "show_code": g_show_code,
+    }
+    pweg.to_python("launch_app", launch_info, null);
+}
+
+var g_app_buttons = [];
+
+function build_app_buttons(show_code) {
+    pweg.to_python("build_app_buttons", {"show_code": show_code}, null);
+}
+
+function select_show(show_code) {
+    g_show_code = show_code;
+    $("#show_title").html(g_show_title_by_code[g_show_code]);
+
+    $("#app_buttons_div").html(""); // clear app buttons
+
+    build_app_buttons(show_code);
+
+    $("#panel_select_show").hide();
+    $("#panel_show_apps").show();
+}
+
+function return_to_show_select() {
+    $("#panel_show_apps").hide();
+    $("#panel_select_show").show();
+}
+
+</script>
+
+<style>
+div.top_pad {
+    margin-top: 10px;
+}
+div.slim_left_pad {
+    padding-left: 4px;
+}
+
+button.project_img_btn {
+    width: 92px;
+    height: 92px;
+    padding: 0px;
+}
+
+button.tool_img_btn {
+    width: 56px;
+    height: 56px;
+    padding: 0px;
+}
+
+img.tool_img {
+    width: 100%;
+    height: 100%;
+}
+
+img.highlight:hover {
+    filter: brightness(120%);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container p-2" id="panel_select_show">
+    <div class="card">
+
+        <div class="card-header bg-secondary">
+            <strong>Select Project</strong>
+        </div>
+
+        <div class="card-body p-2 bg-light">
+
+            <button class="btn btn-primary ml-2 project_img_btn" onclick="select_show('kc');">
+                <img class="highlight" title="Kitty Cat"
+                     src="file:///{{ APP_ROOT }}/show_images/kitty_cat.jpg"
+                            style="width: 100%; height: 100%" />
+            </button>
+
+            <button class="btn btn-primary ml-2 project_img_btn" onclick="select_show('gc');">
+                <img class="highlight" title="Green Caterpillar"
+                    src="file:///{{ APP_ROOT }}/show_images/green_caterpillar.jpg"
+                            style="width: 100%; height: 100%" />
+            </button>
+
+            <button class="btn btn-primary ml-2 project_img_btn" onclick="select_show('vw');">
+                <img class="highlight" title="VW Van Adventures"
+                    src="file:///{{ APP_ROOT }}/show_images/vw_van.jpg"
+                            style="width: 100%; height: 100%" />
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container p-2" id="panel_show_apps" style="display: none;">
+    <div class="card">
+
+        <div class="card-header">
+            <button class="btn btn-secondary btn-sm" onclick="return_to_show_select();" title="Switch Project...">
+                <strong>&lt;</strong>
+            </button>
+            &nbsp;
+            <strong>Project "<span id="show_title"></span>" - Apps &amp; Tools</strong>
+        </div>
+
+        <div id="app_buttons_div" class="card-body p-2">
+
+            BUTTONS GET GENERATED HERE
+
+        </div>
+
+        <p class="text-muted mt-3 mb-2" style="font-size: smaller; margin-left: 10px;">
+        <strong>***</strong> <i>log file located here:</i><pre>{{ LOG_FILE_ROOT }}</pre>
+        </p>
+
+    </div>
+</div> <!-- Outer Container -->
+
+<!-- In-line JavaScript code for this page -->
+<script language="JavaScript">
+// --- START of JavaScript -------------------------------------------------------------------
+
+function getEl( selector_str ) {
+    return document.querySelector( selector_str );
+}
+
+function getElAll( selector_str ) {
+    return document.querySelectorAll( selector_str );
+}
+
+function isDefined( var_to_test ) {
+    if( typeof var_to_test === 'undefined' )
+        return false;
+    return true;
+}
+
+function zeroFill( number, width, truncate_type )
+{
+    var zero_arr = [];
+
+    var num_str = number.toString();
+    var w_delta = width - num_str.length;
+
+    if ( w_delta > 0 ) {
+        for( var c=0; c < w_delta; c++ ) { zero_arr.push('0'); }
+        return ( zero_arr.join('') + num_str );
+    }
+    else if( w_delta == 0 ) {
+        return num_str;
+    }
+
+    if( isDefined( truncate_type ) ) {
+        if( truncate_type == 'keep_right' ) {
+            return num_str.slice( (0 - width), num_str.length );
+        }
+        else if( truncate_type == 'keep_left' ) {
+            return num_str.slice( 0, width );
+        }
+    }
+    return num_str;
+}
+
+$(document).ready(function() {
+    // Handler for .ready() called.
+    var position_x = screen.width / 2 - 600;
+    var position_y = screen.height / 2 - 240;
+    window.moveTo(position_x, position_y);
+});
+
+document.addEventListener('DOMContentLoaded', function ()
+{
+    pweg.init();  // REQUIRED call on event 'DOMContentLoaded'
+});
+
+// --- END of JavaScript -------------------------------------------------------------------
+</script>
+
+</body>
+
+</html>
+

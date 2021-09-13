@@ -1,0 +1,64 @@
+{
+    "app_buttons": [
+        {
+            "app": "webbrowser",
+            "label": "Web Browser",
+            "icon_path": "${LAUNCHER_APP_ROOT}/icons/app_buttons/globe_64x64.png",
+            "exe_path": {
+                "win32": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
+                "linux": "/usr/bin/firefox",
+                "linux2": "/usr/bin/firefox"
+            }
+        },
+
+        {
+            "app": "calculator",
+            "label": "Calculator",
+            "icon_path": "${LAUNCHER_APP_ROOT}/icons/app_buttons/calculator_64x64.png",
+            "exe_path": {
+                "win32": "calc",
+                "linux": "/usr/bin/gnome-calculator",
+                "linux2": "/usr/bin/gnome-calculator"
+            }
+        },
+
+        {
+            "app": "texteditor",
+            "label": "Text Editor",
+            "icon_path": "${LAUNCHER_APP_ROOT}/icons/app_buttons/edit_document_64x64.png",
+            "exe_path": {
+                "win32": "notepad",
+                "linux": "/usr/bin/xed",
+                "linux2": "/usr/bin/xed"
+            }
+        },
+
+        {
+            "app": "opendocumentsfolder",
+            "label": "Open Documents Folder",
+            "icon_path": "${LAUNCHER_APP_ROOT}/icons/app_buttons/opened_folder_64x64.png",
+            "exe_path": {
+                "win32": "explorer",
+                "linux": "/usr/bin/nemo",
+                "linux2": "/usr/bin/nemo"
+            },
+            "exe_args": {
+                "win32": ["${USERPROFILE}\\Documents"],
+                "linux": ["${HOME}"],
+                "linux2": ["${HOME}"]
+            }
+        },
+
+        {
+            "app": "camera",
+            "label": "Camera",
+            "icon_path": "${LAUNCHER_APP_ROOT}/icons/app_buttons/camera_64x64.png",
+            "exe_path": {
+                "win32": "explorer.exe"
+            },
+            "exe_args": [
+                "shell:appsFolder\\Microsoft.WindowsCamera_8wekyb3d8bbwe!App"
+            ]
+        }
+    ]
+}

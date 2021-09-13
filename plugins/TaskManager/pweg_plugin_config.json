@@ -1,0 +1,28 @@
+{
+    "#" : [
+        "This is a comment block for these configuration files.",
+        "Plugin MUST, at a minimum, have a 'default' variation entry if config is to be specified",
+        "",
+        "+ ======================================================================================",
+        "|",
+        "|   TaskManager plugin JSON configuration",
+        "|",
+        "+ ======================================================================================",
+        "",
+        "---"
+    ],
+    "default": {
+        "message_log": {
+            "class": "${P}_message_log_style",
+            "style": ""
+        },
+        "progress_bar": {
+            "class": "${P}_progress_bar_style",
+            "style": ""
+        },
+        "progress_bar_inner": {
+            "class": "${P}_progress_bar_inner_style",
+            "style": "width: 0.0%;"
+        }
+    }
+}
