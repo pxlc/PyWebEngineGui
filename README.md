@@ -1,5 +1,5 @@
 # PyWebEngineGui
-Framework for using PySide2's QWebEngineView to create HTML/CSS/JavaScript front-ends for Desktop apps and tools.
+Framework for using PySide2's QWebEngineView to create HTML/CSS/JavaScript front-ends for Desktop Python apps and tools.
 
 
 
