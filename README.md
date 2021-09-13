@@ -94,8 +94,8 @@ From within the code of another PySide2 app (this includes running from within A
 
 ```python
 from PyWebEngineGui import pweg
-instantiation_params = {}
-pweg.launch_as_dialog('${PATH_TO_PYWEBENGINEGUI_DIR}/examples/',
+instantiation_params = {'width': 600, 'height': 480}
+pweg.launch_as_dialog('${PATH_TO_PYWEBENGINEGUI_DIR}/examples/simple_app/simple_app.py',
                       **instantiation_params)
 ```
 
