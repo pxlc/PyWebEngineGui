@@ -62,8 +62,8 @@ Here is how you can run the examples from the command line:
 
 ```bash
 > # assume you have cd'ed into your copy of the PyWebEngineGui local repo folder
-> # (and assume that PySide2 and jinja2 are available and that this local repo folder
-> # can be found in the PYTHONPATH)
+> # (and assume that PySide2 and jinja2 are available to your Python environemnt
+> # and that this local PyWebEngineGui repo folder can also be found in PYTHONPATH)
 >
 > python3 ./examples/simple_app/simple_app.py
 >
