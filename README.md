@@ -28,7 +28,7 @@ Of course this parent directory containing the `PyWebEngineGui` library folder m
 
 ## Compatibility
 
-This framework could, of course, work with `PyQt5`, but for more rapid development the focus was to just work with `PySide2` to limit the amount of testing that needed to be done as fixes and enhancements are made to it.
+This framework could, of course, work with `PyQt5`, but for more rapid development the focus was to just work with `PySide2` to limit the amount of testing that needed to be done as fixes and enhancements are made to it. And **_please note_** that this framework library has only been tested on **Windows 10**.
 
 #### Here are the environments tested against:
 
