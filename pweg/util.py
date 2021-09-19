@@ -3,7 +3,7 @@ import os
 import sys
 import importlib
 
-from PySide2.QtWidgets import QApplication, QWidget
+from PySide2.QtWidgets import QApplication, QWidget, QMessageBox
 
 
 # --------------------------------------------------------------
@@ -73,9 +73,27 @@ def launch_as_dialog(app_module_filepath, **kwargs):
         kwargs['parent'] = parent
         custom_dialog = subclass_to_instance(**kwargs)
         custom_dialog.show()
+
+        return custom_dialog
     else:
         # TODO: pop-up a confirm dialog to provide error message
-        pass
+        error_message_dialog('PyWebEngineGui Error', 'No WebEngineDialogBase sub-class found in app module: ' \
+                                                        '"%s"' % app_module_filepath)
+        return None
+
+
+def error_message_dialog(dialog_window_title, dialog_error_message):
+
+    dialog = QMessageBox()
+
+    dialog.setIcon(QMessageBox.Warning)
+    dialog.setWindowTitle(dialog_window_title)
+    dialog.setText(dialog_error_message)
+
+    dialog.setStandardButtons(QMessageBox.Ok)
+    # dialog.setDefaultButton(QMessageBox.Yes)
+
+    dialog.exec_()
 
 
 # --------------------------------------------------------------
