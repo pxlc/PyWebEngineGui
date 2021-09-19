@@ -67,6 +67,9 @@ def launch_as_dialog(app_module_filepath, **kwargs):
             parent = get_maya_main_window()
         elif inside_houdini_dcc():
             parent = get_houdini_main_window()  # IMPORTANT NOTE: this will hang houdini - DON'T use in houdini!
+        elif inside_nuke_dcc():
+            parent = get_nuke_main_window()
+
         kwargs['parent'] = parent
         custom_dialog = subclass_to_instance(**kwargs)
         custom_dialog.show()
@@ -121,5 +124,22 @@ def get_houdini_main_window():
     main_window_widget = hou.qt.mainWindow()
 
     return main_window_widget
+
+
+def inside_nuke_dcc():
+
+    try:
+        import nuke
+        return True
+    except:
+        return False
+
+
+def get_nuke_main_window():
+
+    app = QApplication.instance()
+    for widget in app.topLevelWidgets():
+        if widget.metaObject().className() == 'Foundry::UI::DockMainWindow':
+            return widget
 
 
