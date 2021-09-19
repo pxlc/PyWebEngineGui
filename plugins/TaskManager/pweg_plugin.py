@@ -1,9 +1,10 @@
 
 import traceback
 
-from PySide2.QtCore import QObject, QRunnable, QThreadPool, Signal, Slot
+from PyWebEngineGui.pweg import PluginBase, register_plugin_op, get_qtpy_package
 
-from PyWebEngineGui.pweg import PluginBase, register_plugin_op
+qtpy = get_qtpy_package
+from qtpy.QtCore import QObject, QRunnable, QThreadPool, Signal, Slot
 
 
 # + ============================================================================

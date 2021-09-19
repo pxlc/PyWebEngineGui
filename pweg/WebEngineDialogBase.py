@@ -8,15 +8,17 @@ import getpass
 import logging
 import datetime
 
-from PySide2.QtWidgets import QApplication, QWidget, QDialog, QVBoxLayout
-from PySide2.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
-from PySide2.QtWebChannel import QWebChannel
-from PySide2.QtCore import QUrl, Slot, QObject, QUrl, Qt, QMargins
+_PWEG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace('\\', '/')
+sys.path.insert(0, '%s/thirdparty_packages' % _PWEG_ROOT)  # to include QtPy package
 
+from qtpy.QtWidgets import QApplication, QWidget, QDialog, QVBoxLayout
+from qtpy.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
+from qtpy.QtWebChannel import QWebChannel
+from qtpy.QtCore import QUrl, Slot, QObject, QUrl, Qt, QMargins
+
+# local imports
 from .util import register_op
 from .PluginManager import PluginManager
-
-PWEG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace('\\', '/')
 
 
 class JSPythonCallHandler(QObject):
@@ -71,7 +73,7 @@ class WebEngineDialogBase(QDialog):
 
         self.resize(width, height)
 
-        self.pweg_root = PWEG_ROOT
+        self.pweg_root = _PWEG_ROOT
         self.app_title = app_title or self.__class__.__name__
 
         self.app_module_path = app_module_path.replace('\\', '/')
@@ -165,7 +167,7 @@ class WebEngineDialogBase(QDialog):
         self.html_template_vars = {
             'APP_ROOT': self.app_root,
             'APP_TITLE': self.app_title,
-            'PWEG_ROOT': PWEG_ROOT,
+            'PWEG_ROOT': self.pweg_root,
         }
         self.html_template_vars.update(self.setup_extra_template_vars())
 

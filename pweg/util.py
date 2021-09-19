@@ -3,7 +3,10 @@ import os
 import sys
 import importlib
 
-from PySide2.QtWidgets import QApplication, QWidget, QMessageBox
+_PWEG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace('\\', '/')
+sys.path.insert(0, '%s/thirdparty_packages' % _PWEG_ROOT)  # to include QtPy package
+
+from qtpy.QtWidgets import QApplication, QWidget, QMessageBox, QMainWindow
 
 
 # --------------------------------------------------------------
@@ -69,7 +72,8 @@ def launch_as_dialog(app_module_filepath, **kwargs):
             parent = get_houdini_main_window()  # IMPORTANT NOTE: this will hang houdini - DON'T use in houdini!
         elif inside_nuke_dcc():
             parent = get_nuke_main_window()
-
+        elif inside_katana_dcc():
+            parent = get_katana_main_window()
         kwargs['parent'] = parent
         custom_dialog = subclass_to_instance(**kwargs)
         custom_dialog.show()
@@ -159,5 +163,24 @@ def get_nuke_main_window():
     for widget in app.topLevelWidgets():
         if widget.metaObject().className() == 'Foundry::UI::DockMainWindow':
             return widget
+
+
+def inside_katana_dcc():
+
+    try:
+        from Katana import KatanaFile
+        return True
+    except:
+        return False
+
+
+def get_katana_main_window():
+
+    _app = QApplication.instance()
+    for widget in _app.topLevelWidgets():
+        if isinstance(widget, QMainWindow):
+            # found the QMainWindow widget
+            return widget
+    return None
 
 

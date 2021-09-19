@@ -1,5 +1,11 @@
 
-from PySide2.QtWidgets import QApplication
+import os
+import sys
+
+_PWEG_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace('\\', '/')
+sys.path.insert(0, '%s/thirdparty_packages' % _PWEG_ROOT)  # to include QtPy package
+
+from qtpy.QtWidgets import QApplication
 
 
 class PluginBase(object):
