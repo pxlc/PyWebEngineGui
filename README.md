@@ -1,13 +1,13 @@
 # PyWebEngineGui
-Framework for using PySide2's QWebEngineView to create HTML/CSS/JavaScript front-ends for Desktop Python apps and tools.
+Framework for using the PySide2/PyQt5 QWebEngineView widget to create HTML/CSS/JavaScript front-ends for Desktop Python apps and tools.
 
 
 
 ## Overview
 
-The **`PyWebEngineGui`** package framework provides a way to quickly and easily create stand-alone desktop apps, or even a dialog within another PySide2 application, that executes its operations (and stores its data) in a Python session but that presents its UI using HTML/CSS/JavaScript through a sub-class of the **`QWebEngineView`** widget.
+The **`PyWebEngineGui`** package framework provides a way to quickly and easily create stand-alone desktop apps, or even a dialog within another PySide2/PyQt5 application, that executes its operations (and stores its data) in a Python session but that presents its UI using HTML/CSS/JavaScript through a sub-class of the **`QWebEngineView`** widget.
 
-This framework can also be used to create dialogs (modal and non-modal) from within the [**Autodesk Maya**](https://www.autodesk.ca/en/products/maya/overview) DCC (_digital content creation_) software.
+This framework can also be used to create dialogs (modal and non-modal) from within the [**Autodesk Maya**](https://www.autodesk.ca/en/products/maya/overview) DCC (_digital content creation_) software or in [**Foundry Nuke**](https://www.foundry.com/products/nuke) DCC software.
 
 Being able to create the UI for dialogs or applications using web-based technologies allows for very rapid development and iteration of both the visual look and the user experience of a user interface, and results in much slicker looking and much more dynamic interfaces than traditional Qt interfaces.
 
@@ -19,7 +19,7 @@ This approach also opens up an enormous toolbox of JavaScript and CSS libraries 
 
 This framework requires the other Python packages to be available in the environment:
 
-* `PySide2` (tested successfully only on versions `5.12.5`, in Maya 2020, and `5.15.2`)
+* `PySide2` (tested successfully only on versions `5.12.5`, in Maya 2020, and `5.15.2`) _OR_ `PyQt5` (`5.6.1`)
 * `jinja2` (used for HTML templating)
 
 Of course this parent directory containing the `PyWebEngineGui` library folder must exist in the PYTHONPATH, in order to import it.
@@ -28,25 +28,28 @@ Of course this parent directory containing the `PyWebEngineGui` library folder m
 
 ## Compatibility
 
-This framework could, of course, work with `PyQt5`, but for more rapid development the focus was to just work with `PySide2` to limit the amount of testing that needed to be done as fixes and enhancements are made to it. The `PyWebEngineGui` library should work across operating systems,  **_but please note_** that it has only been tested on **Windows 10**.
+This framework integrates a copy of the open source [`QtPy` package](https://github.com/spyder-ide/qtpy) so that it can be used with either `PySide2` or `PyQt5`. However, most of the development and testing of `PyWebEngineGui` has been done using `PySide2`. This library should work across operating systems,  **_but please note_** that it has only been tested on **Windows 10**.
+
+Below is a table of environments that were tested on and whether this framework works there or not.
 
 #### Here are the environments tested against:
 
-| Python version | PySide2 version       | _DCC_ (if applicable)       | **OS**     | Does it work here?                             |
-| -------------- | --------------------- | --------------------------- | ---------- | ---------------------------------------------- |
-| `3.8.2`        | `5.15.2`              | _-- No DCC --_              | Windows 10 | **YES**                                        |
-| `3.9.7`        | `5.15.2_-- No DCC --_ | _-- No DCC --_              | Windows 10 | **YES**                                        |
-| `2.7.11`       | `5.12.5`              | **Autodesk Maya 2020**      | Windows 10 | **YES**                                        |
-| `2.7.16`       | `5.12.2`              | **Foundry Nuke 12.2v3**     | Windows 10 | **YES**                                        |
-| _`3.9.5`_      | _`5.15.2`_            | _-- No DCC --_              | Windows 10 | _NO_ - does not work                           |
-| _`2.7.15`_     | _`5.12.6`_            | **SideFX Houdini 18.5.462** | Windows 10 | _NO_ - does not work (_totally hangs houdini_) |
-| _`2.7.15`_     | _`5.12.6`_            | **SideFX Houdini 18.5.633** | Windows 10 | _NO_ - does not work (_totally hangs houdini_) |
+| Python version | PySide2 / PyQt5 version | _DCC_ (if applicable)       | **OS**     | Does it work here?                                           |
+| -------------- | ----------------------- | --------------------------- | ---------- | ------------------------------------------------------------ |
+| `3.8.2`        | PySide2 `5.15.2`        | _-- No DCC --_              | Windows 10 | **YES**                                                      |
+| `3.9.7`        | PySide2 `5.15.2`        | _-- No DCC --_              | Windows 10 | **YES**                                                      |
+| `2.7.11`       | PySide2 `5.12.5`        | **Autodesk Maya 2020**      | Windows 10 | **YES**                                                      |
+| `2.7.16`       | PySide2 `5.12.2`        | **Foundry Nuke 12.2v3**     | Windows 10 | **YES**                                                      |
+| `2.7.13`       | PyQt5 `5.6`             | **Foundry Katana 4.0v5**    | Windows 10 | _NO_ - HTML UI does display mostly, but the library's required JavaScript fails due to JavaScript strict mode enforced by the Katana PyQt5 build, so functionality breaks and the library effectively **_does not work_** here. |
+| _`3.9.5`_      | PySide2 _`5.15.2`_      | _-- No DCC --_              | Windows 10 | _NO_ - does not work                                         |
+| _`2.7.15`_     | PySide2 _`5.12.6`_      | **SideFX Houdini 18.5.462** | Windows 10 | _NO_ - does not work (_totally hangs houdini_)               |
+| _`2.7.15`_     | PySide2 _`5.12.6`_      | **SideFX Houdini 18.5.633** | Windows 10 | _NO_ - does not work (_totally hangs houdini_)               |
 
 
 
-So, to summarize, the `PyWebEngineGui` framework library can be used successfully when run command line with Python 3.8+ (except, strangely, not Python 3.9.5) and PySide2 5.15.2. It can also be used successfully from within Autodesk Maya 2020 (sorry haven't tested in any other Maya versions yet) and Foundry Nuke 12.2v3.
+So, to summarize, the `PyWebEngineGui` framework library can be used successfully when run command line with Python 3.8+ (except, strangely, not Python 3.9.5) and PySide2 5.12.2+ or PyQt5 5.6+. It can also be used successfully from within Autodesk Maya 2020 (sorry haven't tested in any other Maya versions yet) and Foundry Nuke 12.2v3.
 
-DO NOT use this with SideFX Houdini ... use of the `QWebEngineView` widget seems to just hang Houdini completely.
+DO NOT use this with SideFX Houdini ... use of the `QWebEngineView` widget seems to just hang Houdini completely. As well this library doesn't really work in Foundry Katana, so don't use it there either.
 
 
 
